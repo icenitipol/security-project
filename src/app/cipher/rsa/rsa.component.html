@@ -1,0 +1,69 @@
+<div class="container">
+  <h2>RSA</h2>
+  <hr>
+  <p>ยินดีต้อนรับสู่...</p>
+  <p>RSA... เป็นการเข้ารหัสข้อมูลแบบ...</p>
+  <br>
+</div>
+<div class="container-split">
+  <div class="container">
+    <h3>Data</h3>
+  <hr>
+    <p>Original Message</p>
+    <textarea placeholder="input" [(ngModel)]="input"></textarea>
+    <hr>
+    <p>Cipher Message</p>
+    <textarea placeholder="output" [(ngModel)]="output"></textarea>
+  </div>
+  <div class="container">
+    <h3>Settings</h3>
+    <hr>
+    <p style="display: inline">p</p>
+    <input type="text" placeholder="p" [(ngModel)]="p">
+    <br>
+
+    <p style="display: inline">q</p>
+    <input type="text" placeholder="q" [(ngModel)]="q">
+    <br>
+
+    <button (click)="step1()">pq Cal</button>
+    <br>
+    <br>
+    <p style="display: inline">n</p>
+    <input type="text" placeholder="N" [(ngModel)]="n">
+    <br>
+
+    <p style="display: inline">r</p>
+    <input type="text" placeholder="r" [(ngModel)]="r">
+    <br>
+
+    <p style="display: inline">candidate</p>
+    {{candidate | json}}
+    <input type="text" placeholder="candidates" [(ngModel)]="candidate">
+    <br>
+
+    <p style="display: inline">k</p>
+    <input type="text" placeholder="K" [(ngModel)]="k">
+    <br>
+
+    <p style="display: inline">e</p>
+    <input type="text" placeholder="e" [(ngModel)]="e">
+    <br>
+
+    <p style="display: inline">d</p>
+    <input type="text" placeholder="d" [(ngModel)]="d">
+    <br>
+
+    <p style="display: inline">m</p>
+    <input type="text" placeholder="msg" [(ngModel)]="m">
+    <br>
+
+    <p style="display: inline">c</p>
+    <input type="text" placeholder="encrypted" [(ngModel)]="c">
+    <br>
+
+    <p style="display: inline">md</p>
+    <input type="text" placeholder="decrypted" [(ngModel)]="md">
+    <br>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+$sidenav-size: 300px;
+
+body {
+  margin: 0;
+  background-color: rgba(152, 152, 170, 0.486);
+}
+
+* {
+  font-family: 'Prompt', sans-serif;
+}
+
+.sidenav {
+  width: $sidenav-size;
+}
+
+.content {
+  position: fixed;
+  top: 0;
+  left: $sidenav-size;
+  height: 100vh;
+  width: calc(100vw - $sidenav-size);
+  overflow-y: auto;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+
+
+
+.container {
+  // width: 100%;
+  background-color: #f7f7f8c7;
+  margin: 20px 20px 0 20px;
+  box-shadow: #66666915 2px 2px 12px;
+  border-radius: 10px;
+  padding: 20px;
+  overflow-x: auto;
+
+  p,
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    color: rgb(48, 43, 43);
+  }
+
+  input {
+    border-radius: 5px;
+    border: 1px solid rgb(196, 195, 206);
+  }
+
+  button {
+    border-radius: 5px;
+    border: 1px solid rgb(106, 80, 100);
+    background-color: rgb(233, 198, 233);
+    color: rgb(44, 41, 41);
+    cursor: pointer;
+    transition: all 200ms;
+
+    &:hover {
+      background-color: rgb(86, 12, 86);
+      color: white;
+    }
+  }
+
+  textarea {
+    border-radius: 5px;
+    border: 1px solid rgb(106, 80, 100);
+    // border-color: rgb(196, 195, 206);
+    transition: border-color 200ms;
+    padding: 10px;
+    width: calc(100% - 20px);
+
+    &:focus {
+      border-color: rgb(93, 93, 136);
+      outline: none !important;
+    }
+  }
+
+  table {
+    border-radius: 5px;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid rgba(29, 29, 31, 0.048);
+    border-collapse: collapse;
+  }
+
+  td {
+    min-width: 1rem;
+    text-align: center;
+    font-size: smaller;
+  }
+}
+
+.container-split {
+  display: flex;
+  margin: 20px 20px 0 20px;
+  gap: 20px;
+
+  .container {
+    display: inline;
+    width: 100%;
+    margin: 0;
+
+    &.minimum-container {
+      width: auto;
+    }
+
+    &.maximum-container {
+      width: calc(100% - 240px);
+    }
+  }
+
+
+
+
+}
+
+
+
+@media only screen and (max-width: 800px) {
+  .container-split {
+    flex-direction: column-reverse;
+    margin: 20px;
+
+    & .container.minimum-container,
+    & .container.maximum-container,
+    .container {
+      width: calc(100% - 40px);
+    }
+  }
+}
+
+
+@media only screen and (max-width: 599px) {
+  .sidenav {
+    width: 0;
+  }
+
+  .content {
+    left: 0;
+    top: 80px;
+    height: calc(100vh - 80px);
+    width: 100vw;
+  }
+}

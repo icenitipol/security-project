@@ -1,0 +1,64 @@
+<div class="container">
+  <h2>Columnar Transposition</h2>
+  <hr>
+  <p>ยินดีต้อนรับสู่...</p>
+  <p>Columnar... เป็นการเข้ารหัสข้อมูลแบบ...</p>
+  <br>
+</div>
+<div class="container">
+  <h3>Data</h3>
+<hr>
+  <p>Input Message</p>
+  <textarea type="text" [(ngModel)]="input" (input)="encrypt()"></textarea>
+</div>
+
+<div class="container-split">
+  <div class="container minimum-container">
+    <h3>Settings</h3>
+  <hr>
+    <p>Keys</p>
+    <input type="text" [(ngModel)]="key" (input)="encrypt()" style="width: calc(100% - 10px);">
+    <hr>
+    <input type="checkbox" >
+    <label>Encode</label>
+  </div>
+
+  <div class="container maximum-container">
+    <h3>Output</h3>
+  <hr>
+    <!-- <p>Input Message</p> -->
+    <div class="grid">
+      <table>
+        <tr >
+          <td [style]="getCellStyle(k, true)" *ngFor="let k of key.split(''), let i = index">{{k}}</td>
+        </tr>
+        <tr *ngFor="let row of columnData_before">
+          <td [style]="getCellStyle(i)" *ngFor="let column of row, let i = index">{{column}}</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td [style]="getCellStyle(i+1, true)"  *ngFor="let k of key.split(''), let i = index">{{i+1}}</td>
+        </tr>
+        <tr *ngFor="let row of columnData">
+          <td [style]="getCellStyle(i+1)"  *ngFor="let column of row, let i = index">{{column}}</td>
+        </tr>
+      </table>
+      <textarea type="text" [(ngModel)]="output"></textarea>
+    </div>
+  </div>
+</div>
+<!-- <div class="container-split">
+
+   <div class="container">
+    <h3>Settings</h3>
+    <hr>
+    <input type="checkbox">
+    <label>find original value?</label>
+    <hr>
+    <label>k: </label>
+    <hr>
+    <p>from</p>
+    <p>to</p>
+  </div>
+</div> -->

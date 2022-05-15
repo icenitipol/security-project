@@ -1,0 +1,45 @@
+<div class="container">
+	<h2>Monoalphabetic Subsitution Cipher</h2>
+	<hr>
+	<p>ยินดีต้อนรับสู่...</p>
+	<p>Mono... เป็นการเข้ารหัสข้อมูลแบบ...</p>
+	<br>
+</div>
+<div class="container">
+	<h3>Settings</h3>
+	<hr>
+	<input type="text" [(ngModel)]="alphabets_shifted" style="width: 20rem" maxlength="26" (input)="encode()">
+  <button (click)="random()">Random</button>
+  <button (click)="reset()">Reset</button>
+  <p style="color: red;" *ngIf="alphabets_shifted.length != 26">Key must be 26 character!</p>
+  <p style="color: red;" *ngIf="!isAllUnique(alphabets_shifted.split(''))">Key must be all unique!</p>
+  <p style="color: red;" *ngIf="!isAllAlphabet(alphabets_shifted.split(''))">Key should be Alphabets!</p>
+	<hr>
+	<table>
+		<!-- <tr>
+			<td *ngFor="let a of alphabets_shifted.split(''); let i = index"
+				[ngStyle]="getCellStyle(getAlphabetIndex(a)+key)">{{(i+key)%26}}</td>
+		</tr> -->
+		<tr>
+			<td *ngFor="let a of alphabets.split(''); let i = index"
+				[ngStyle]="getCellStyle(getAlphabetIndex(a)+key)">{{a}}</td>
+		</tr>
+    <tr>
+			<td *ngFor="let a of alphabets.split('');">V</td>
+		</tr>
+    <tr>
+			<td class="draggable" (dragover)="allowDrop($event)" (drop)="dropped($event)" (dragover)="dropped($event)"
+				(drag)="dragged($event)" draggable="true" *ngFor="let a of alphabets_shifted.split(''); let i = index"
+				[ngStyle]="getCellStyle(getAlphabetIndex(a)+key)">{{a}}</td>
+		</tr>
+	</table>
+</div>
+<div class="container">
+	<h3>Data</h3>
+	<hr>
+	<p>Original Message</p>
+	<textarea placeholder="input" [(ngModel)]="input" (input)="encode()"></textarea>
+	<hr>
+	<p>Cipher Message</p>
+	<textarea placeholder="output" [(ngModel)]="output" (input)="encode(true)"></textarea>
+</div>

@@ -1,0 +1,15 @@
+<div ngModel #nav class="sidenav">
+  <h1 (click)="toggleActive(nav)">Security: <br><span>The project</span></h1>
+  <!-- <h1>{{router.url}}</h1> -->
+  <hr>
+  <ul>
+    <li [classList]="[ router.url=='/'?'active':'' ]" (click)="goto('')">Home</li>
+    <li [classList]="[ router.url=='/rsa'?'active':'' ]" (click)="goto('rsa')">RSA</li>
+    <!-- <li [classList]="[ router.url=='/ecc'?'active':'' ]" (click)="goto('ecc')">ECC: Elliptic Curve</li> -->
+    <li [classList]="[ router.url=='/col'?'active':'' ]" (click)="goto('col')">Columnar Transposition</li>
+    <li [classList]="[ router.url=='/mono'?'active':'' ]" (click)="goto('mono')">Monoalphabetic Subsitution</li>
+    <!-- <li [classList]="[ router.url=='/roll'?'active':'' ]" (click)="goto('roll')">Roll Fence</li> -->
+    <!-- <li [classList]="[ router.url=='/otp'?'active':'' ]" (click)="goto('otp')">One Time Pad</li> -->
+    <li [classList]="[ router.url=='/shift'?'active':'' ]" (click)="goto('shift')">Ceasar Shift</li>
+  </ul>
+</div>

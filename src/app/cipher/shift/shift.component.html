@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Monoalphabetic Subsitution Cipher</h2>
+  <hr>
+  <p>ยินดีต้อนรับสู่...</p>
+  <p>Mono... เป็นการเข้ารหัสข้อมูลแบบ...</p>
+  <br>
+  <table>
+    <tr>
+      <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{i}}</td>
+    </tr>
+    <tr>
+      <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{alphabet}}</td>
+    </tr>
+  </table>
+</div>
+<div class="container-split">
+  <div class="container">
+    <h3>Data</h3>
+  <hr>
+    <p>Original Message</p>
+    <textarea placeholder="input" [(ngModel)]="input" (input)="encode()"></textarea>
+    <hr>
+    <p>Cipher Message</p>
+    <textarea placeholder="output" [(ngModel)]="output" (input)="encode(true)"></textarea>
+  </div>
+  <div class="container">
+    <h3>Settings</h3>
+    <hr>
+    <input style="width: 100%" type="range" max="25" min="0" placeholder="k" [(ngModel)]="key" (input)="sliderShift()">
+    <input type="checkbox" [(ngModel)]="isDecode">
+    <label>find original value?</label>
+    <hr>
+    <label>k: {{key}}</label>
+    <hr>
+    <p>from</p>
+    <table>
+      <tr>
+        <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{i}}</td>
+      </tr>
+      <tr>
+        <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{alphabet}}</td>
+      </tr>
+    </table>
+    <!-- <hr> -->
+    <p>to</p>
+    <table>
+      <tr>
+        <td *ngFor="let alphabet of alphabets_shifted.split(''); let i = index" [ngStyle]="getCellStyle((i+key)%26)">{{(i+key)%26}}</td>
+      </tr>
+      <tr>
+        <td *ngFor="let alphabet of alphabets_shifted.split(''); let i = index" [ngStyle]="getCellStyle((i+key)%26)">{{alphabet}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
