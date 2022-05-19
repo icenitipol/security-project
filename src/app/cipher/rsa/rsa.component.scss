@@ -1,0 +1,41 @@
+.table-button {
+  background-color: #ffffffc9;
+  user-select: none;
+
+  &.clickable {
+    cursor: pointer;
+    background-color: #e0e0edc9;
+
+    &:hover {
+      background-color: #a4a3c8c9;
+    }
+
+    &:active {
+      background-color: #8d8cb3c9;
+    }
+  }
+}
+
+.label {
+  display: inline-block;
+  width: 30px;
+}
+
+input {
+  width: calc(100% - 40px);
+}
+
+input:read-only {
+  user-select: none;
+  color: gray;
+  // cursor: default;
+  &:focus {
+    outline: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .container-split {
+    flex-direction: column;
+  }
+}

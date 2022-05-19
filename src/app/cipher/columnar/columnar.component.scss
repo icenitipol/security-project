@@ -5,8 +5,18 @@
   gap: 10px;
 }
 
+textarea {
+  resize: vertical;
+}
+
 @media only screen and (max-width: 800px) {
   .container-split {
     flex-direction: column;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
   }
 }

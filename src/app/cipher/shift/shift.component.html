@@ -1,15 +1,22 @@
 <div class="container">
-  <h2>Monoalphabetic Subsitution Cipher</h2>
+  <h2>Caesar cipher</h2>
   <hr>
-  <p>ยินดีต้อนรับสู่...</p>
-  <p>Mono... เป็นการเข้ารหัสข้อมูลแบบ...</p>
+  <p>การเข้ารหัสซีซาร์ (Caesar cipher) </p>
+  <p class="light">ในทางด้านวิทยาการเข้ารหัสลับ หรือเป็นที่รู้จักกันในชื่ออื่นว่า Shift cipher Caesar's code หรือ Caesar shift เป็นเทคนิคการเข้ารหัสที่ง่ายและแพร่หลายที่สุด โดยใช้หลักการแทนที่ตัวอักษร ซึ่งในแต่ละตัวอักษรที่อยู่ในข้อความจะถูกแทนที่ด้วยตัวอักษรที่อยู่ลำดับถัดไปตามจำนวนตัวอักษรที่แน่นอน อย่างเช่น แปลงตัวอักษรไป 3 ตัว อักษร "A" ก็จะถูกแทนที่ด้วยอักษร "D" การเข้ารหัสแบบดังกล่าวตั้งชื่อตามจูเลียส ซีซาร์ ซึ่งคิดค้นขึ้นเพื่อการติดต่อสื่อสารกับแม่ทัพนายกองของเขา</p>
   <br>
-  <table>
+  <p>Example: </p>
+  <table class="smol-table">
     <tr>
       <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{i}}</td>
     </tr>
     <tr>
       <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{alphabet}}</td>
+    </tr>
+    <tr>
+      <td *ngFor="let alphabet of alphabets_shifted3.split(''); let i = index" [ngStyle]="getCellStyle((i+3)%26)">{{(i+3)%26}}</td>
+    </tr>
+    <tr>
+      <td *ngFor="let alphabet of alphabets_shifted3.split(''); let i = index" [ngStyle]="getCellStyle((i+3)%26)">{{alphabet}}</td>
     </tr>
   </table>
 </div>
@@ -33,7 +40,7 @@
     <label>k: {{key}}</label>
     <hr>
     <p>from</p>
-    <table>
+    <table class="med-table">
       <tr>
         <td *ngFor="let alphabet of alphabets.split(''); let i = index" [ngStyle]="getCellStyle(i)">{{i}}</td>
       </tr>
@@ -43,7 +50,7 @@
     </table>
     <!-- <hr> -->
     <p>to</p>
-    <table>
+    <table class="med-table">
       <tr>
         <td *ngFor="let alphabet of alphabets_shifted.split(''); let i = index" [ngStyle]="getCellStyle((i+key)%26)">{{(i+key)%26}}</td>
       </tr>

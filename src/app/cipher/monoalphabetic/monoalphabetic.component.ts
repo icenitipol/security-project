@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MonoalphabeticComponent implements OnInit {
 
   alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  alphabets_shifted = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  alphabets_shifted = "CDEFGHIJKABLMNOPQRSTUVWXYZ"
 
   key = 0;
   isDecode = false;
@@ -114,17 +114,14 @@ export class MonoalphabeticComponent implements OnInit {
   encode(isDecode = false) {
     if(this.isError()) return;
     let inputText = isDecode ? this.output : this.input;
-
     let result = ""
     inputText.split('').forEach((e) => {
+      //ABC
       let isUpperCase = e.charCodeAt(0) < 97
       if(/^[a-zA-Z]{1,1}$/.exec(e)) {
-        // 1 2 3  2 3 1  1 -> 2
         let replaceX = isDecode ? this.alphabets_shifted : this.alphabets;
         let withX = isDecode ? this.alphabets : this.alphabets_shifted;
-
         const replaced = withX.split('')[replaceX.indexOf(e.toUpperCase())]
-
         result += isUpperCase ? replaced : replaced.toLowerCase()
       }
       else {

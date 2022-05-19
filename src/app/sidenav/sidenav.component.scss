@@ -1,9 +1,10 @@
 .sidenav {
-  background-color: rgb(232, 233, 235);
+  background-color: #3ba5f44d;;
+  // background: linear-gradient(270deg, rgba(235,206,249,1) 7%, rgba(190,212,238,1) 53%, rgba(162,161,196,1) 100%);
   // width: 300px;
   height: 100vh;
   display: inline-block;
-  box-shadow: #44444410 3px 3px 12px;
+  box-shadow: #2d292947 3px 3px 12px;
   overflow-y: auto;
   position: fixed;
   top: 0;
@@ -29,7 +30,7 @@
     margin: 0;
     margin-top: 20px;
     li {
-      box-shadow: #d1d1d191 3px 3px 12px;
+      box-shadow: #5370a25e 3px 3px 12px;
       list-style: none;
       background-color: rgba(255, 255, 255, 0.658);
       padding: 20px;
@@ -64,6 +65,9 @@
 
 @media only screen and (max-width: 599px) {
   .sidenav {
+    // transition: all 200ms;
+    background-color: #c1a0e7c7;
+    backdrop-filter: blur(5px);
     height: 80px;
     width: 100vw;
     transition: height 200ms;

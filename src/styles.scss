@@ -1,15 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Sriracha&display=swap');
+
+// @include font('Cloud-Light', '/assets/fonts/Cloud/Soft-Light.ttf');
 
 $sidenav-size: 300px;
 
 body {
   margin: 0;
   background-color: rgba(152, 152, 170, 0.486);
+  background: linear-gradient(180deg, rgba(235,206,249,1) 7%, rgba(190,212,238,1) 53%, rgba(162,161,196,1) 100%);
+  height: 100vh;
 }
 
 * {
-  font-family: 'Prompt', sans-serif;
+  font-family: 'CloudSoftBold';
+  &.light {
+    font-family: 'CloudSoftLight';
+  }
 }
 
 .sidenav {
@@ -24,17 +33,22 @@ body {
   width: calc(100vw - $sidenav-size);
   overflow-y: auto;
   overflow-x: auto;
-  padding-bottom: 20px;
+  // padding-bottom: 20px;
 }
 
+.light-head {
+  font-family: 'CloudSoftLight';
+  font-size: large;
+  color: #5272b5;
+}
 
 
 
 .container {
   // width: 100%;
-  background-color: #f7f7f8c7;
-  margin: 20px 20px 0 20px;
-  box-shadow: #66666915 2px 2px 12px;
+  background-color: #ffffffa1;
+  margin: 20px 20px 20px 20px;
+  box-shadow: #42393c1f 2px 2px 12px;
   border-radius: 10px;
   padding: 20px;
   overflow-x: auto;
@@ -44,24 +58,27 @@ body {
   h2,
   h3 {
     margin: 0;
-    color: rgb(48, 43, 43);
+    color: rgb(52, 52, 70);
   }
 
   input {
     border-radius: 5px;
     border: 1px solid rgb(196, 195, 206);
+    &:focus {
+      outline: 1px solid gray ;
+    }
   }
 
   button {
     border-radius: 5px;
-    border: 1px solid rgb(106, 80, 100);
-    background-color: rgb(233, 198, 233);
+    border: 1px solid #635ba01a;
+    background-color: #d4d0f2;
     color: rgb(44, 41, 41);
     cursor: pointer;
     transition: all 200ms;
 
     &:hover {
-      background-color: rgb(86, 12, 86);
+      background-color: #9891ca;
       color: white;
     }
   }
@@ -100,7 +117,7 @@ body {
 
 .container-split {
   display: flex;
-  margin: 20px 20px 0 20px;
+  margin: 20px 20px 20px 20px;
   gap: 20px;
 
   .container {
@@ -116,15 +133,9 @@ body {
       width: calc(100% - 240px);
     }
   }
-
-
-
-
 }
 
-
-
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
   .container-split {
     flex-direction: column-reverse;
     margin: 20px;
@@ -137,7 +148,6 @@ body {
   }
 }
 
-
 @media only screen and (max-width: 599px) {
   .sidenav {
     width: 0;
@@ -149,4 +159,8 @@ body {
     height: calc(100vh - 80px);
     width: 100vw;
   }
+}
+
+.justify {
+  text-align: justify;
 }

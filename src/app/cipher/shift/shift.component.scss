@@ -1,3 +1,23 @@
 textarea {
   resize: vertical;
 }
+
+.smol-table {
+  font-size: xx-small;
+  font-family: 'CloudSoftLight';
+  td {
+    min-width: .7rem;
+  }
+}
+
+.med-table {
+  font-size: x-small;
+  font-family: 'CloudSoftLight';
+  td {
+    min-width: .7rem;
+  }
+}
+
+// table{
+//   overflow: scroll;
+// }

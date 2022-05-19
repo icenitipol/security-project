@@ -1,13 +1,19 @@
 <div class="container">
   <h2>Columnar Transposition</h2>
   <hr>
-  <p>ยินดีต้อนรับสู่...</p>
-  <p>Columnar... เป็นการเข้ารหัสข้อมูลแบบ...</p>
-  <br>
+  <p>การเข้ารหัสด้วยวิธีการสับเปลี่ยนแบบคอลัมน์ (Columnar Transposition Cipher)</p>
+  <p class="light">วิธีนี้จะเป็นการเข้ารหัสที่มีประสิทธิภาพวิธีหนึ่ง โดยจะใช้ร่วมกับคีย์ที่กำหนดขึ้น
+    ไม่มีตัวอักษรใดที่ซ้ำกัน ทำให้ถอดรหัสได้ยาก โดยมีวิธีการดังนี้</p>
+  <p class="light">
+    1. กําหนดตําแหน่งลําดับของแต่ละคอลัมน์นิยมเรียงตําแหน่งคอลัมน์ตามลําดับของแต่ละตัวอักษร
+  </p>
+  <p class="light">
+    2. นํา Plain Text ที่ต้องการมาเข้ารหัสด้วยการเขียนตามลําดับหากครบจํานวนคอลัมน์ก็ให้ปัดขึ้นบรรทัดใหม่
+  </p>
 </div>
 <div class="container">
   <h3>Data</h3>
-<hr>
+  <hr>
   <p>Input Message</p>
   <textarea type="text" [(ngModel)]="input" (input)="encrypt()"></textarea>
 </div>
@@ -15,50 +21,43 @@
 <div class="container-split">
   <div class="container minimum-container">
     <h3>Settings</h3>
-  <hr>
+    <hr>
     <p>Keys</p>
     <input type="text" [(ngModel)]="key" (input)="encrypt()" style="width: calc(100% - 10px);">
     <hr>
-    <input type="checkbox" >
-    <label>Encode</label>
+    <input type="checkbox" [(ngModel)]="isEncode" (change)="encrypt()">
+    <label (click)="isEncode = !isEncode">Encode</label>
   </div>
 
   <div class="container maximum-container">
     <h3>Output</h3>
-  <hr>
-    <!-- <p>Input Message</p> -->
+    <hr>
     <div class="grid">
-      <table>
-        <tr >
-          <td [style]="getCellStyle(k, true)" *ngFor="let k of key.split(''), let i = index">{{k}}</td>
+      <table *ngIf="isEncode">
+        <tr>
+          <td [style]="getCellStyle(k)" *ngFor="let k of key.split('')">{{k}}</td>
         </tr>
         <tr *ngFor="let row of columnData_before">
-          <td [style]="getCellStyle(i)" *ngFor="let column of row, let i = index">{{column}}</td>
+          <td [style]="getCellStyle(key.split('')[i])" *ngFor="let column of row, let i = index">{{column}}</td>
         </tr>
       </table>
       <table>
         <tr>
-          <td [style]="getCellStyle(i+1, true)"  *ngFor="let k of key.split(''), let i = index">{{i+1}}</td>
+          <td [style]="getCellStyle(i+1)" *ngFor="let k of key.split(''), let i = index">{{i+1}}</td>
         </tr>
         <tr *ngFor="let row of columnData">
-          <td [style]="getCellStyle(i+1)"  *ngFor="let column of row, let i = index">{{column}}</td>
+          <td [style]="getCellStyle(i+1)" *ngFor="let column of row, let i = index">{{column}}</td>
+        </tr>
+      </table>
+      <table *ngIf="!isEncode">
+        <tr>
+          <td [style]="getCellStyle(k)" *ngFor="let k of key.split('')">{{k}}</td>
+        </tr>
+        <tr *ngFor="let row of columnData_before">
+          <td [style]="getCellStyle(key.split('')[i])" *ngFor="let column of row, let i = index">{{column}}</td>
         </tr>
       </table>
       <textarea type="text" [(ngModel)]="output"></textarea>
     </div>
   </div>
 </div>
-<!-- <div class="container-split">
-
-   <div class="container">
-    <h3>Settings</h3>
-    <hr>
-    <input type="checkbox">
-    <label>find original value?</label>
-    <hr>
-    <label>k: </label>
-    <hr>
-    <p>from</p>
-    <p>to</p>
-  </div>
-</div> -->

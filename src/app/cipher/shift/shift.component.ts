@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ShiftComponent implements OnInit {
 
   alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  alphabets_shifted3 = "DEFGHIJKLMNOPQRSTUVWXYZABC"
   alphabets_shifted = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
   key = 0;

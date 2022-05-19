@@ -15,6 +15,7 @@ export class ColumnarComponent implements OnInit {
   columnData_before: string[][] = []
   output: string = "";
   key: string = ""
+  isEncode = true
 
   ngOnInit(): void {
   }
@@ -23,27 +24,27 @@ export class ColumnarComponent implements OnInit {
     return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   }
 
-  hslToRgb(h: number, s: number, l: number){
+  hslToRgb(h: number, s: number, l: number) {
     var r: number, g: number, b: number;
-    if(s == 0){
-        r = g = b = l; // achromatic
-    }else{
-        var hue2rgb = function hue2rgb(p: number, q: number, t: number){
-            if(t < 0) t += 1;
-            if(t > 1) t -= 1;
-            if(t < 1/6) return p + (q - p) * 6 * t;
-            if(t < 1/2) return q;
-            if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-            return p;
-        }
-        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        var p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1/3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1/3);
+    if (s == 0) {
+      r = g = b = l; // achromatic
+    } else {
+      var hue2rgb = function hue2rgb(p: number, q: number, t: number) {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1 / 6) return p + (q - p) * 6 * t;
+        if (t < 1 / 2) return q;
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+      }
+      var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      var p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1 / 3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1 / 3);
     }
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-}
+  }
 
   getCellStyle(value: number | string, heading = false) {
     value = parseInt(value + "") % this.key.length
@@ -56,22 +57,6 @@ export class ColumnarComponent implements OnInit {
   }
 
   encrypt() {
-    const errorHandler = (err: string) => {
-      this.columnData = []
-      this.output = ""
-      console.log({err})
-    }
-    if (this.key.length == 0) {
-      return errorHandler('err 1')
-    };
-    if (!this.key.match(/^[1-9]{2,9}$/)) {
-      return errorHandler('err 2')
-    };
-    const keys = this.key.split('').map((e) => parseInt(e))
-    if([...keys].sort()[keys.length-1] != keys.length) {
-      return errorHandler('err 3')
-    };
-
     this.columnData = []
     this.columnData_before = []
     this.output = ""
@@ -79,6 +64,16 @@ export class ColumnarComponent implements OnInit {
     const inputSplit = this.input.split('')
     const cols = this.key.length
     const rows = inputSplit.length / cols
+    const keys = this.key.split('').map((e) => parseInt(e))
+
+    const errorHandler = (err: string) => {
+      console.log({ err })
+    }
+    if (cols == 0) return errorHandler('err 1')
+    if (!this.key.match(/^[1-9]{2,9}$/)) return errorHandler('err 2')
+    if ([...keys].sort()[keys.length - 1] != keys.length) return errorHandler('err 3')
+
+    if(!this.isEncode) return this.decrypt();
 
     for (let i = 0; i < rows; i++) {
       let temp = []
@@ -92,13 +87,11 @@ export class ColumnarComponent implements OnInit {
     for (let i = 0; i < rows; i++) {
       let temp = []
       for (let j = 0; j < cols; j++) {
-        const txt = this.columnData_before[i][this.key.indexOf((j+1) + "")]
+        const txt = this.columnData_before[i][this.key.indexOf((j + 1) + "")]
         temp.push(txt)
       }
       this.columnData.push(temp)
     }
-
-
 
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
@@ -110,6 +103,34 @@ export class ColumnarComponent implements OnInit {
   }
 
   decrypt() {
+    const inputSplit = this.input.split('')
+    const cols = this.key.length
+    const rows = inputSplit.length / cols
+    const keys = this.key.split('').map((e) => parseInt(e))
 
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const txt = inputSplit[(i * rows) + j]
+        if(!this.columnData[j]) this.columnData[j] = []
+        this.columnData[j][i] = txt
+      }
+    }
+
+    for (let i = 0; i < rows; i++) {
+      let temp = []
+      for (let j = 0; j < cols; j++) {
+        const txt = this.columnData[i][keys[j]-1]
+        temp.push(txt)
+      }
+      this.columnData_before.push(temp)
+    }
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        this.output += this.columnData_before[i][j] ?? ""
+      }
+    }
+
+    // this.columnData_before = this.columnData_before[0].map((_, colIndex) => this.columnData_before.map(row => row[colIndex]));
   }
 }

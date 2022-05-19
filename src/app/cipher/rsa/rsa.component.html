@@ -1,69 +1,108 @@
 <div class="container">
-  <h2>RSA</h2>
+  <h2>RSA <span class="light-head">(Rivest-Shamir-Adleman)</span></h2>
   <hr>
-  <p>ยินดีต้อนรับสู่...</p>
-  <p>RSA... เป็นการเข้ารหัสข้อมูลแบบ...</p>
-  <br>
+  <p>การเข้ารหัสแบบอาร์เอสเอ (RSA) </p>
+  <p class="light">คือขั้นตอนวิธีสำหรับการเข้ารหัสลับแบบกุญแจอสมมาตร (public-key encryption) เป็นขั้นตอนวิธีแรกที่ทราบว่าเหมาะสำหรับลายเซ็นดิจิทัลรวมถึงการเข้ารหัส เป็นหนึ่งในความก้าวหน้าครั้งใหญ่ครั้งแรกในการเข้ารหัสแบบกุญแจสาธารณะ อาร์เอสเอยังคงใช้ในโพรโทคอลสำหรับการพาณิชย์อิเล็กทรอนิกส์ และเชื่อว่ามีความปลอดภัยถ้ามีคีย์ที่ยาวพอ</p>
 </div>
 <div class="container-split">
-  <div class="container">
-    <h3>Data</h3>
-  <hr>
-    <p>Original Message</p>
-    <textarea placeholder="input" [(ngModel)]="input"></textarea>
-    <hr>
-    <p>Cipher Message</p>
-    <textarea placeholder="output" [(ngModel)]="output"></textarea>
-  </div>
-  <div class="container">
+  <div class="container maximum-container">
     <h3>Settings</h3>
     <hr>
-    <p style="display: inline">p</p>
+    <p class="label">p</p>
     <input type="text" placeholder="p" [(ngModel)]="p">
     <br>
 
-    <p style="display: inline">q</p>
+    <p class="label">q</p>
     <input type="text" placeholder="q" [(ngModel)]="q">
     <br>
 
-    <button (click)="step1()">pq Cal</button>
+    <br>
+    <button style="width: 100%; float: right" (click)="step1()">Calculate !</button>
     <br>
     <br>
-    <p style="display: inline">n</p>
-    <input type="text" placeholder="N" [(ngModel)]="n">
-    <br>
-
-    <p style="display: inline">r</p>
-    <input type="text" placeholder="r" [(ngModel)]="r">
+    <p class="label">n</p>
+    <input type="text" placeholder="N" [(ngModel)]="n" readonly>
     <br>
 
-    <p style="display: inline">candidate</p>
-    {{candidate | json}}
-    <input type="text" placeholder="candidates" [(ngModel)]="candidate">
-    <br>
-
-    <p style="display: inline">k</p>
-    <input type="text" placeholder="K" [(ngModel)]="k">
-    <br>
-
-    <p style="display: inline">e</p>
-    <input type="text" placeholder="e" [(ngModel)]="e">
-    <br>
-
-    <p style="display: inline">d</p>
-    <input type="text" placeholder="d" [(ngModel)]="d">
-    <br>
-
-    <p style="display: inline">m</p>
-    <input type="text" placeholder="msg" [(ngModel)]="m">
-    <br>
-
-    <p style="display: inline">c</p>
-    <input type="text" placeholder="encrypted" [(ngModel)]="c">
-    <br>
-
-    <p style="display: inline">md</p>
-    <input type="text" placeholder="decrypted" [(ngModel)]="md">
+    <p class="label">r</p>
+    <input type="text" placeholder="r" [(ngModel)]="r" readonly>
     <br>
   </div>
+
+  <div class="container maximum-container">
+    <h3>Settings</h3>
+    <hr>
+    <!-- <p class="label">candidate</p> -->
+    <div style="max-height: 200px; overflow-y: scroll">
+      <table style="width: 100%">
+        <tr >
+          <td>Candidate</td>
+          <td>Factorize</td>
+        </tr>
+        <ng-container *ngFor="let e of candidate" >
+          <tr *ngIf="e[1].length == 2" class="table-button clickable" (click)="step2(e[0])">
+            <td>{{e[0]}}</td>
+            <td>{{e[1].join(', ')}}</td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+
+    <!-- <input type="text" placeholder="candidates" [(ngModel)]="candidate"> -->
+    <br>
+
+    <p class="label">k</p>
+    <input type="text" placeholder="K" [(ngModel)]="k" readonly>
+    <br>
+
+    <p class="label">e</p>
+    <input type="text" placeholder="e" [(ngModel)]="e" readonly>
+    <br>
+
+    <p class="label">d</p>
+    <input type="text" placeholder="d" [(ngModel)]="d" readonly>
+    <br>
+
+  </div>
+  <div class="container">
+    <h3>Data</h3>
+  <hr>
+  <p class="label">m</p>
+  <input (input)="step3()" type="text" placeholder="msg" [(ngModel)]="m">
+  <br>
+
+  <p class="label">c</p>
+  <input type="text" placeholder="encrypted" [(ngModel)]="c" (input)="decryptOnly()">
+  <br>
+
+  <p class="label">md</p>
+  <input type="text" placeholder="decrypted" [(ngModel)]="md" readonly>
+  <br>
+  </div>
+
+</div>
+<div class="container">
+  <h3>หลักการทำงาน</h3>
+  <hr>
+  <p>ภาพรวมทั้งหมด</p>
+  <ul style="margin-top: 0;">
+    <li class="light">กำหนดจำนวนเฉพาะ p และ q</li>
+    <li class="light">ให้ n = p*q และ r = (p-1) *(q-1)</li>
+    <li class="light">เลือก factor เพื่อกำหนดค่า k, e, d</li>
+    <li class="light">e ต้องน้อยกว่า n และ e กับ n ต้องไม่มีตัวประกอบร่วมกัน</li>
+    <li class="light">e*d mod r จะต้อง เท่ากับ 1</li>
+    <li class="light">ให้ m คือข้อความเดิมที่ได้จากการแปลงตัวอักษรเป็นตัวเลข</li>
+    <li class="light">ให้ c คือข้อความที่เข้ารหัสจาก m</li>
+  </ul>
+  <p>การเข้ารหัส และถอดรหัส</p>
+  <p class="light">Encryption</p>
+  <ul style="margin-top: 0;">
+    <li class="light">Public Key: (e, n)</li>
+    <li class="light">c=m^e  mod n</li>
+  </ul>
+  <p class="light">Decryption</p>
+  <ul style="margin-top: 0;">
+    <li class="light">Private Key: (d, n)</li>
+    <li class="light">m=c^d  mod n</li>
+  </ul>
 </div>

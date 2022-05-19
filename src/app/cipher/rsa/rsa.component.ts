@@ -47,7 +47,7 @@ export class RsaComponent implements OnInit {
 
     if (PRIME == 1) return []
     if (T > 1) ttt.push(T)
-    return ttt.join(' ')
+    return ttt
   }
 
   GCD(m: number, n: number) {
@@ -62,11 +62,11 @@ export class RsaComponent implements OnInit {
     return m
   }
 
-  Candidates(r: number) {
+  Candidates(r: number, total: number) {
     let temp: number[] = []
     let n = (r + 1)
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < total; i++) {
       temp.push(n)
       n = n + r
     }
@@ -79,39 +79,72 @@ export class RsaComponent implements OnInit {
     let q = this.q ?? 0
     this.n = p * q
     this.r = (p - 1) * (q - 1)
-    this.candidate = this.Candidates(this.r)
-    let candidatesfactor = this.candidate.map(e => {
+    this.candidate = this.Candidates(this.r, 1000)
+    this.candidate = this.candidate.map(e => {
       return [e, this.Factorize(e)]
     })
-    console.log({ candidatesfactor })
+    console.log(this.candidate)
+  }
+
+  step2(num: number) {
+    const factor = this.Factorize(num)
+    if (factor.length != 2) return;
+    this.k = num;
+    this.e = factor[0];
+    this.d = factor[1];
+
+    this.CheckED(this.e, this.d, this.r, this.n)
+
+    this.step3()
+  }
+
+  PowerMod(x: number, p: number, N: number)
+  // Compute x^p mod N
+  {
+    var A = 1
+    var m = p
+    var t = x
+
+    while (m > 0) {
+      let k = Math.floor(m / 2)
+      let r = m - 2 * k
+      if (r == 1)
+        A = (A * t) % N
+      t = (t * t) % N
+      m = k
+    }
+    return A
+  }
+
+  step3() {
+    // const cipher = Math.pow(this.m, this.e) % this.n
+    // const decipher = Math.pow(cipher, this.d) % this.n
+    // const cipher = Math.pow(M, e) % N
+    const cipher = this.PowerMod(this.m, this.e, this.n)
+    // const decipher = Math.pow(cipher, d) % N
+    const decipher = this.PowerMod(cipher, this.d, this.n)
+
+    this.c = cipher;
+    this.md = decipher
+  }
+
+  decryptOnly(){
+    const decipher = this.PowerMod(this.c, this.d, this.n)
+    this.md = decipher
   }
 
   CheckED(e: number, d: number, r: number, N: number) {
-    var temp = ""
-
-    temp += "      e   = " + e + "\n"
-    temp += "      d   = " + d + "\n"
-    temp += "      N   = " + N + "\n"
-    temp += "      r   = " + r + "\n"
-    temp += "      e*d = " + (e * d) + "\n"
-    temp += "e*d mod r = " + this.mod((e * d), r) + "\n"
-
-    if (this.GCD(e, r) == 1)
-      temp += "e and r are relatively prime\n"
-    else
-      temp += "e and r are not relatively prime; gcd(e,r) = " + this.GCD(e, r) + "\n"
-
-    if (this.GCD(d, r) == 1)
-      temp += "d and r are relatively prime\n"
-    else
-      temp += "d and r are not relatively prime; gcd(d,r) = " + this.GCD(d, r) + "\n"
-
-    console.log({ temp })
+    let edmr = this.mod((e * d), r) == 1
+    let eprime = this.GCD(e, r) == 1
+    let dprime = this.GCD(d, r) == 1
+    console.log(edmr, eprime, dprime)
   }
 
   CheckCode(e: number, d: number, N: number, M: number) {
-    const cipher = Math.pow(M, e) % N
-    const decipher = Math.pow(cipher, d) % N
+    // const cipher = Math.pow(M, e) % N
+    const cipher = this.PowerMod(M, e, N)
+    // const decipher = Math.pow(cipher, d) % N
+    const decipher = this.PowerMod(cipher, d, N)
 
     console.log({ cipher, decipher })
   }
